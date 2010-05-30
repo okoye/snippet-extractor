@@ -10,9 +10,9 @@ public class TestMain {
 				"hellow wpr;d reddit clone engadget" +
 				"andriod ping twitter ; 9 ( zz yelp search" +
 				"pizza deep dish reddit clone master ninja" +
-				"dart owlcity san-francisco hello";
+				"dart owlcity san francisco hello";
 		HighlightDocument highlighter = new HighlightDocument(doc1);
-		highlighter.search("san-francisco");
+		highlighter.search("san&francisco");
 	}
 
 }
