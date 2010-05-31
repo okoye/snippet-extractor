@@ -10,7 +10,8 @@ public class RelevanceEngine
 	private ScoreComputer snippetScore = null;
 	private ArrayList<Snippet> allSnippets = null;
 	private DocumentParser docParser = null;
-	private final double mergeFactor = 0.5; //For merge to occur, new snippet must exceed this factor. 
+	private final double mergeFactor = 0.8; //For merge to occur, new snippet must exceed this factor.
+	private final int snippetSize = 150; //Approximately 150 characters
 	
 	public RelevanceEngine(DocumentParser parser)
 	{
@@ -48,13 +49,11 @@ public class RelevanceEngine
 					snippet1 = mergeSnippets(snippet1, newSnippet2, false);
 					snippet1.setScore(snippet1.getScore()+newSnippet2.getScore());
 					allSnippets.set(index, snippet1);
-					System.out.println("Delete 1... "+allSnippets.get(index+1).toString());
 					allSnippets.remove(index+1);
 				}
 				else //Don't merge and just delete second snippet since it is redundant.
 				{
 					allSnippets.set(index, snippet1); //replace with most recent snippet.
-					System.out.println("Delete 2... "+allSnippets.get(index+1).toString());
 					allSnippets.remove(index+1);
 				}
 			}
@@ -79,7 +78,7 @@ public class RelevanceEngine
 			allSnippets.set(i, tempSnippet);
 			allSnippets.remove(i-1);
 			
-			if(tempSnippet.getEndIndex() - tempSnippet.getStartIndex() >= 150)
+			if(tempSnippet.getEndIndex() - tempSnippet.getStartIndex() >= snippetSize)
 				return tempSnippet;
 		}
 		return allSnippets.get(allSnippets.size()-1); //Just return highest scored snippet. Should not reach here if document is large enough.

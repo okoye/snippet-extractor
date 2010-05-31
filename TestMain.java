@@ -19,7 +19,7 @@ public class TestMain {
 	
 	public static void main(String[] args) 
 	{
-		File file = new File("testdata/test1.txt");
+		File file = new File("/Users/Chuka/Documents/workspace/Yelp_Java/src/testdata/test1.txt");
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
 		DataInputStream dis = null;
@@ -49,14 +49,8 @@ public class TestMain {
 			System.out.println("An I/O error occured.");
 		}
 		
-		/*String doc1 = "dish test1 test test document chuka " +
-				"hellow wpr;d reddit clone engadget" +
-				"andriod ping twitter ; 9 ( zz yelp search" +
-				"pizza deep dished reddit clone master ninja" +
-				"dart owlcity san-francisco hello"; */
-		
 		HighlightDocument highlighter = new HighlightDocument(buf.toString());
-		highlighter.search("francisco deep dish pizza");
+		System.out.println("**MOST RELEVANT** "+highlighter.search("deep dish-pizza"));
 	}
 
 }

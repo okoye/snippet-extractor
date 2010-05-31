@@ -72,14 +72,12 @@ public class HighlightDocument
 			}
 			
 			for(int i=0; i<allSnippets.size(); i++)
-				System.out.println("Snippet @ "+i+" : "+allSnippets.get(i));
+				System.out.println("Snippet "+i+" : "+allSnippets.get(i));
 			
 			//Score each snippet and extract most relevant one.
 			mostRelevantSnippet = relevanceEngine.getMostRelevant(allSnippets, searchTerms);
-			
-			System.out.println(mostRelevantSnippet.toString());
 		}
-		return "";
+		return mostRelevantSnippet.toString();
 	}
 	
 }
