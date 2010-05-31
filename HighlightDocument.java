@@ -2,8 +2,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 /**
+ * Instantiates and connects all other critical classes used in 
+ * processing such as TriStructure, RelevanceEngine, DocumentParser
+ * 
  * @author Chuka Okoye
- *
  */
 public class HighlightDocument 
 {
@@ -14,8 +16,10 @@ public class HighlightDocument
 	private String[] searchTerms;
 	
 	/**
+	 * Instantiates the DocumentParser and RelevanceEngine
+	 * with supplied document.
 	 * 
-	 * @param doc
+	 * @param doc, the document to be parsed
 	 */
 	public HighlightDocument(String doc)
 	{
@@ -31,6 +35,11 @@ public class HighlightDocument
 		initializeTree();
 	}
 	
+	/**
+	 * Inserts each word in the document into the Trie Tree.
+	 * This ensures that the document is scanned only once and all
+	 * searches for keywords can be done in near log time.
+	 */
 	private void initializeTree()
 	{
 		Iterator<Word> iter = docParser.getAllWords();
@@ -43,6 +52,12 @@ public class HighlightDocument
 		}
 	}
 	
+	/**
+	 * Searches for a searchKey in the tree. Also retrieves most relevant
+	 * snippet.
+	 * @param searchKey, user typed search string.
+	 * @return String, the most relevant snippet.
+	 */
 	public String search(String searchKey)
 	{
 		searchKey = searchKey.toLowerCase();
@@ -77,6 +92,10 @@ public class HighlightDocument
 			//Score each snippet and extract most relevant one.
 			mostRelevantSnippet = relevanceEngine.getMostRelevant(allSnippets, searchTerms);
 		}
+		
+		if(mostRelevantSnippet == null)
+			return null;
+		
 		return mostRelevantSnippet.toString();
 	}
 	

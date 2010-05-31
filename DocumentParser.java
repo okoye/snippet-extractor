@@ -10,7 +10,7 @@ public class DocumentParser
 	private char[] charArray;
 	
 	/**
-	 * 
+	 * The document to be parsed.
 	 * @param document
 	 */
 	public DocumentParser(String document)
@@ -29,9 +29,9 @@ public class DocumentParser
 	}
 	
 	/**
-	 * Retrieves the ...
-	 * @param index
-	 * @return
+	 * Retrieves the next 15 words in a document. This forms a snippet.
+	 * @param index, the index of the first word from which the snippet will be extracted.
+	 * @return Snippet, the snippet extracted from the original document.
 	 */
 	public Snippet getSnippet(int index)
 	{

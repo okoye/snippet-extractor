@@ -10,7 +10,17 @@ public class ScoreComputer
 	{
 		this.searchTerms = searchTerm;
 	}
-	public Snippet computeScore(Snippet value, boolean tag)
+	
+	/**
+	 * Responsible for computing the score values for each snippet and
+	 * can if specified, tag each snippet with [[HIGHLIGH]] & [[ENDHIGHLIGHT]]
+	 * 
+	 * @param value, the Snippet whose score is to be computed
+	 * @param tag, an indicator for tagging. Passing true will enable tagging.
+	 * 
+	 * @return The new snippet with a computed score and optionally tagged.
+	 */
+	protected Snippet computeScore(Snippet value, boolean tag)
 	{
 		int tempScore = 0;
 		Word aWord = null;
@@ -30,6 +40,11 @@ public class ScoreComputer
 		return snippet;
 	}
 	
+	/**
+	 * Compares each word in a snippet to terms in the search string.
+	 * @param word, the word whose similarity to the search string is to be tested
+	 * @return int, 0 if no match, else 1 if there is a string similar in search string.
+	 */
 	private int score(Word word)
 	{
 		String[] wordArray = word.getWord().split("\\W"); //Ignore all non-word characters when scoring.

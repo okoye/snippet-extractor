@@ -1,4 +1,5 @@
 /**
+ * Class definition of a Word.
  * @author Chuka Okoye
  *
  */

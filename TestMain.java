@@ -50,7 +50,7 @@ public class TestMain {
 		}
 		
 		HighlightDocument highlighter = new HighlightDocument(buf.toString());
-		System.out.println("**MOST RELEVANT** "+highlighter.search("deep dish-pizza"));
+		System.out.println("**MOST RELEVANT** "+highlighter.search("japanese koryori ya"));
 	}
 
 }

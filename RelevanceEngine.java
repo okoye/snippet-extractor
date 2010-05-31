@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * The relevanceEngine is responsible for merging, multiple snippets and also computing
+ * relevancy of each snippet using the scoring computer. 
+ * 
  * @author Chuka Okoye
  *
  */
@@ -13,11 +16,22 @@ public class RelevanceEngine
 	private final double mergeFactor = 0.8; //For merge to occur, new snippet must exceed this factor.
 	private final int snippetSize = 150; //Approximately 150 characters
 	
+	/**
+	 * @param parser, a DocumentParser.
+	 */
 	public RelevanceEngine(DocumentParser parser)
 	{
 		docParser = parser;
 	}
 	
+	/**
+	 * This method merges 'greatly overlapping' snippets, tags keywords and scores
+	 * each snippet.
+	 * 
+	 * @param snippets, a list of all snippets extracted from trie tree
+	 * @param searchTerms, an array of parsed search keywords.
+	 * @return
+	 */
 	public Snippet getMostRelevant(ArrayList<Snippet> snippets, String[] searchTerms)
 	{
 		snippetScore = new ScoreComputer(searchTerms);
@@ -81,9 +95,20 @@ public class RelevanceEngine
 			if(tempSnippet.getEndIndex() - tempSnippet.getStartIndex() >= snippetSize)
 				return tempSnippet;
 		}
+		
+		if(allSnippets.size() == 0)
+			return null;
+		
 		return allSnippets.get(allSnippets.size()-1); //Just return highest scored snippet. Should not reach here if document is large enough.
 	}
 	
+	/**
+	 * A routine to merge two snippets. Accepts two snippets not necessarily in proper order in document
+	 * @param snippet1
+	 * @param snippet2
+	 * @param runon, indicates if both snippets should be connected with a run on '...'
+	 * @return Snippet, the merged snippet.
+	 */
 	private Snippet mergeSnippets(Snippet snippet1, Snippet snippet2, boolean runon)
 	{
 		ArrayList<Word> tempWord = snippet1.getWordList();

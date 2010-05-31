@@ -34,7 +34,8 @@ public class TrieStructureTest
 		assertTrue(x.getWordIndexes("xylophone").contains(17));
 		assertTrue(x.getWordIndexes("rabbit") == null);
 		
-	//	assertFalse(x.putWord("", 21));
+		assertFalse(x.putWord("-", 21)); 
+		assertFalse(x.putWord(null, 42)); //Should never happen
 		
 	}
 

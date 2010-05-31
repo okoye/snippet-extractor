@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 
 /**
+ * My implementation of a Trie Tree. Stores important information
+ * about the contents of a document and their word indexes. Searches
+ * can be conducted in near O(md) where m is size of alphabet and d length of 
+ * search string.
+ * 
  * @author Chuka Okoye
- *
  */
 
 public class TrieStructure 
@@ -155,7 +159,15 @@ public class TrieStructure
 	 */
 	private boolean checkValidity(String string)
 	{
-		char[] myArray = string.toCharArray();
+		char[] myArray = null;
+		try
+		{
+			myArray = string.toCharArray();
+		}
+		catch(NullPointerException e)
+		{
+			return false;
+		}
 		int value;
 		for(int i=0; i<myArray.length; i++)
 		{

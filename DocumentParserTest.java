@@ -42,9 +42,9 @@ public class DocumentParserTest
 	public void testGetSnippet()
 	{
 		Snippet aSnip = aParser.getSnippet(0);
-		assertEquals(aSnip.getEndIndex(),73);
+		assertEquals(aSnip.getEndIndex(),80); //Should be the 80th index
 		aSnip = aParser.getSnippet(118);
-		assertEquals(aSnip.getEndIndex(),128);
+		assertEquals(aSnip.getEndIndex(),129); //Should be the 129th
 	}
 
 }
