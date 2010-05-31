@@ -71,6 +71,9 @@ public class HighlightDocument
 				allSnippets.add(docParser.getSnippet(termIndex.get(i)));
 			}
 			
+			for(int i=0; i<allSnippets.size(); i++)
+				System.out.println("Snippet @ "+i+" : "+allSnippets.get(i));
+			
 			//Score each snippet and extract most relevant one.
 			mostRelevantSnippet = relevanceEngine.getMostRelevant(allSnippets, searchTerms);
 			

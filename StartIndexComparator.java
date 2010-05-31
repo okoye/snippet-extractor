@@ -14,7 +14,7 @@ public class StartIndexComparator implements Comparator<Snippet>
 		int snip1StartIndex = snip1.getStartIndex();
 		int snip2StartIndex = snip2.getStartIndex();
 		
-		if(snip1StartIndex > snip2StartIndex)
+		if(snip1StartIndex < snip2StartIndex)
 			return -1;
 		else if(snip1StartIndex == snip2StartIndex)
 			return 0;

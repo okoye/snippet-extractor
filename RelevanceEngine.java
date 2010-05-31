@@ -43,16 +43,18 @@ public class RelevanceEngine
 				newSnippet2 = snippetScore.computeScore(docParser.getSnippet(snippet1End+1),false);
 				oldSnippet2 = snippetScore.computeScore(allSnippets.get(index+1), false);
 				
-				if((mergeFactor*oldSnippet2.getScore()) >= newSnippet2.getScore()) //If new snippet >= mergeFactor of original, merge then delete.
+				if((mergeFactor*oldSnippet2.getScore()) <= newSnippet2.getScore()) //Most search key words must fall in non-overlapping portion
 				{
-					snippet1 = mergeSnippets(snippet1, newSnippet2);
+					snippet1 = mergeSnippets(snippet1, newSnippet2, false);
 					snippet1.setScore(snippet1.getScore()+newSnippet2.getScore());
 					allSnippets.set(index, snippet1);
+					System.out.println("Delete 1... "+allSnippets.get(index+1).toString());
 					allSnippets.remove(index+1);
 				}
 				else //Don't merge and just delete second snippet since it is redundant.
 				{
 					allSnippets.set(index, snippet1); //replace with most recent snippet.
+					System.out.println("Delete 2... "+allSnippets.get(index+1).toString());
 					allSnippets.remove(index+1);
 				}
 			}
@@ -62,21 +64,32 @@ public class RelevanceEngine
 			}
 		}
 		
-		//All necessary merges are complete.
-		//Compute then sort by scores
-		//TODO: Recompute scores with tags.
+		//Recompute scores with tags enabled this time.
+		for(int i=0; i<allSnippets.size(); i++)
+			allSnippets.set(i, snippetScore.computeScore(allSnippets.get(i), true));
+		
+		//Sort by scores
 		Collections.sort(allSnippets, new ScoreComparator());
 		
+		//Snippets should be approximately 150 characters in length
+		Snippet tempSnippet = null;
+		for(int i=allSnippets.size()-1; i>0; i--)
+		{
+			tempSnippet = mergeSnippets(allSnippets.get(i), allSnippets.get(i-1), true);
+		}
 		return allSnippets.get(allSnippets.size()-1); //Either return highest score element or a bunch of them.
 	}
 	
-	private Snippet mergeSnippets(Snippet snippet1, Snippet snippet2)
+	private Snippet mergeSnippets(Snippet snippet1, Snippet snippet2, boolean runon)
 	{
 		ArrayList<Word> tempWord = snippet1.getWordList();
 		ArrayList<Word> buff = new ArrayList<Word>();
 		
 		for(int i=0; i<tempWord.size(); i++)
 			buff.add(tempWord.get(i));
+		
+		if(runon)
+			buff.add(new Word("...",-1));
 		
 		tempWord = snippet2.getWordList();
 		for(int i=0; i<tempWord.size(); i++)
