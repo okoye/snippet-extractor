@@ -1,0 +1,29 @@
+Snippet Extractor
+
+########Running Snippet Extractor#########
+1. Open 'TestMain.java' and ensure that the proper path to a test document
+   is specified in the file variable. By default it uses the content specified
+   in 'testdata/test1.txt'
+
+2. When the proper document has been specified, set the search keyword and
+   run the program.
+
+3. It should print a list of all snippets extracted from the document and 
+   a based on these results, the auto-generated most relevant snippet.
+
+#######Brief Description of Program########
+When supplied a document, the program parses the document only one time to 
+extract all words in the document and store in a Trie Tree including the
+index of each term. On completion, all search keywords are run against this
+tree to determine all indexes each keyword occurs in the document. This
+operation takes at most O(dm) time where d is the size of the alphabets
+accepted by the tree (62) and m size of the word. Most tree queries take O(m)
+time. Upon extracting all relevant indexes, it extracts the snippet surrounding
+each of those terms and uses the 'RelevanceEngine' class to compute the
+relevance of each snippet. The relevanceengine class also deals with merging
+of multiple similar snippets, deletion of redundant snippets and creation of
+newer snippets. Each snippet is approximately 15 words while the most relevant
+snippet is on average 140-200 characters.
+
+For more information on the methods of each class, a javadoc representation of
+each class can be generated or you can contact me :).

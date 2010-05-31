@@ -19,7 +19,8 @@ public class TestMain {
 	
 	public static void main(String[] args) 
 	{
-		File file = new File("/Users/Chuka/Documents/workspace/Yelp_Java/src/testdata/test1.txt");
+		File file = new File("/Users/Chuka/Documents/workspace/Yelp_Java/src/testdata/test1.txt"); //Document
+		String searchKeyword = "japanese koryori-ya koryori ya"; //Search keyword
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
 		DataInputStream dis = null;
@@ -50,7 +51,7 @@ public class TestMain {
 		}
 		
 		HighlightDocument highlighter = new HighlightDocument(buf.toString());
-		System.out.println("**MOST RELEVANT** "+highlighter.search("japanese koryori ya"));
+		System.out.println("**MOST RELEVANT** "+highlighter.search(searchKeyword));
 	}
 
 }
