@@ -10,7 +10,7 @@ public class ScoreComputer
 	{
 		this.searchTerms = searchTerm;
 	}
-	public Snippet computeScore(Snippet value)
+	public Snippet computeScore(Snippet value, boolean tag)
 	{
 		int tempScore = 0;
 		Word aWord = null;
@@ -23,7 +23,8 @@ public class ScoreComputer
 			if(tempScore != 0)
 			{
 				snippet.setScore(snippet.getScore()+tempScore);
-				snippet.setWord(i, aWord.tagWord());
+				if(tag)
+					snippet.setWord(i, aWord.tagWord());
 			}
 		}
 		return snippet;

@@ -1,6 +1,5 @@
 import java.util.Iterator;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * @author Chuka Okoye
@@ -11,7 +10,7 @@ public class HighlightDocument
 	private char[] documentCharRepresentation = null;
 	private DocumentParser docParser = null;
 	private TrieStructure trieTree = null;
-	private ScoreComputer snippetScore = null;
+	private RelevanceEngine relevanceEngine = null;
 	private String[] searchTerms;
 	
 	/**
@@ -27,6 +26,7 @@ public class HighlightDocument
 		
 		docParser = new DocumentParser(doc);
 		trieTree = new TrieStructure();
+		relevanceEngine = new RelevanceEngine(docParser);
 		
 		initializeTree();
 	}
@@ -52,6 +52,8 @@ public class HighlightDocument
 		
 		ArrayList<Integer> termIndex = new ArrayList<Integer>();
 		ArrayList<Integer> temp;
+		Snippet mostRelevantSnippet = null;
+		
 		if(searchTerms.length != 0)
 		{
 			//Retrieve all indexes of search terms from trieTree
@@ -69,18 +71,10 @@ public class HighlightDocument
 				allSnippets.add(docParser.getSnippet(termIndex.get(i)));
 			}
 			
-			//Score each snippet
-			snippetScore = new ScoreComputer(searchTerms);
-			for(int i=0; i<allSnippets.size(); i++)
-			{
-				allSnippets.set(i, snippetScore.computeScore(allSnippets.get(i)));
-			}
+			//Score each snippet and extract most relevant one.
+			mostRelevantSnippet = relevanceEngine.getMostRelevant(allSnippets, searchTerms);
 			
-			//Sort from highest to lowest
-			Collections.sort(allSnippets, new Snippet());
-			
-			for(int i=0; i<allSnippets.size(); i++)
-				System.out.println(allSnippets.get(i).toString());
+			System.out.println(mostRelevantSnippet.toString());
 		}
 		return "";
 	}

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**A class definition of the term 'Snippet'. It contains
  * a sequence of words extracted from the document. The first
@@ -7,9 +6,8 @@ import java.util.Comparator;
  * forms the last index.
  * 
  * @author Chuka Okoye
- *
  */
-public class Snippet implements Comparator<Snippet>
+public class Snippet
 {
 	private ArrayList<Word> wordList;
 	private int score;
@@ -74,16 +72,6 @@ public class Snippet implements Comparator<Snippet>
 		return true;
 	}
 
-	public int compare(Snippet snip1, Snippet snip2) 
-	{
-		if(snip1.score < snip2.score)
-			return -1;
-		else if(snip1.score == snip2.score)
-			return 0;
-		else
-			return 1;
-	}
-	
 	public String toString()
 	{
 		StringBuffer temp = new StringBuffer();
@@ -94,7 +82,7 @@ public class Snippet implements Comparator<Snippet>
 			temp.append(wordList.get(i).getWord());
 			temp.append(" ");
 		}
-		temp.append(" [score: "+score+"]");
+		//temp.append(" [score: "+score+"]");
 		return temp.toString().trim();
 	}
 }
