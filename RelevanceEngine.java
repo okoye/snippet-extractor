@@ -76,8 +76,13 @@ public class RelevanceEngine
 		for(int i=allSnippets.size()-1; i>0; i--)
 		{
 			tempSnippet = mergeSnippets(allSnippets.get(i), allSnippets.get(i-1), true);
+			allSnippets.set(i, tempSnippet);
+			allSnippets.remove(i-1);
+			
+			if(tempSnippet.getEndIndex() - tempSnippet.getStartIndex() >= 150)
+				return tempSnippet;
 		}
-		return allSnippets.get(allSnippets.size()-1); //Either return highest score element or a bunch of them.
+		return allSnippets.get(allSnippets.size()-1); //Just return highest scored snippet. Should not reach here if document is large enough.
 	}
 	
 	private Snippet mergeSnippets(Snippet snippet1, Snippet snippet2, boolean runon)
